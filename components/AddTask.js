@@ -5,22 +5,34 @@ import {
     Button, 
     StyleSheet
 } from 'react-native';
+import { connect } from 'react-redux';
+import { changeText, addTask } from '../actions/actions';
 
-export default class AddTask extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { text: '' };
-    }
-
+class AddTask extends React.Component {
     render() {
         return (
             <View style={styles.taskContainer}>
-                <TextInput style={styles.taskText} value={this.state.text} onChangeText={(text) => this.setState({text})} />
-                <Button color='#ccc' title='Add' onPress={this.props.onSubmit(this.state.text)} />
+                <TextInput style={styles.taskText} value={this.props.text} onChangeText={(text) => this.props.changeText(text)} />
+                <Button color='#ccc' title='Add' onPress={() => this.props.addTask({id: Date.now(), value: this.props.text})} />
             </View>
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        text: state.text
+    };
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        changeText: (text) => dispatch(changeText(text)),
+        addTask: (task) => dispatch(addTask(task))
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddTask);
 
 const styles = StyleSheet.create({
     taskContainer: {

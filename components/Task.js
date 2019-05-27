@@ -1,22 +1,36 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
+import { deleteTask } from '../actions/actions';
 
-export default class Task extends React.Component {
-
+class Task extends React.Component {
     render() {
         return (
             <View style={styles.taskContainer}>
                 <Text style={styles.taskText}>{this.props.text}</Text>
                 <Button 
-                
                     color='#ccc'
                     title='x' 
-                    onPress={this.props.onRemove(this.props.taskId)}
+                    onPress={() => this.props.deleteTask(this.props.taskId)}
                 />
             </View>
         )
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+
+    };
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        deleteTask: (id) => dispatch(deleteTask(id))
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Task);
 
 const styles = StyleSheet.create({
     taskContainer: {
