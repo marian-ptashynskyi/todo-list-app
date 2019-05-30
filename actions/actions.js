@@ -1,76 +1,46 @@
-export const deleteTask = (id) => {
-    return {
-        type: 'DELETE_TASK',
-        id
-    };
-};
+import * as ActionTypes from './actionTypes';
 
 export const addTask = (newTask) => {
     return {
-        type: 'ADD_TASK',
+        type: ActionTypes.ADD_TASK,
         task: newTask
     };
 };
 
 export const changeText = (text) => {
     return {
-        type: 'CHANGE_TEXT',
+        type: ActionTypes.CHANGE_TEXT,
         text
     };
 };
 
-export const fetchTodosRequest = () => {
+export const deleteTask = (id) => {
     return {
-        type: 'FETCH_TODOS_REQUEST'
+        type: ActionTypes.DELETE_TASK,
+        id
     };
 };
 
-export const fetchTodosFailure = (error) => {
+export const fetchTodosFailure = (bool) => {
     return {
-        type: 'FETCH_TODOS_ERROR',
-        error
+        type: ActionTypes.FETCH_TODOS_FAILURE,
+        hasErrored: bool
+    };
+};
+
+export const fetchTodosRequest = (bool) => {
+    return {
+        type: ActionTypes.FETCH_TODOS_REQUEST,
+        isFetching: bool
     };
 };
 
 export const fetchTodosSuccess = (todos) => {
     return {
-        type: 'FETCH_TODOS_SUCCESS',
+        type: ActionTypes.FETCH_TODOS_SUCCESS,
         todos
     };
 };
-
-// TODO It is not working with errors... redo
-// export function todosFetchData(url) {
-//     return (dispatch) => {
-//         dispatch(fetchTodosRequest());
-
-//         fetch(url)
-//             .then(
-//                 response => response.json(),
-
-//                 error => dispatch(fetchTodosFailure(error))
-//             )
-//             .then((items) => dispatch(fetchTodosSuccess(items)))
-//     }
-// }
-
-export function todosFetchData(url) {
-    return (dispatch) => {
-        dispatch(fetchTodosRequest());
-
-        fetch(url)
-            .then(
-                response => {
-                    if (!response.ok) {
-                        throw Error(response.statusText);
-                    }
-                    return response.json();
-                }
-            )
-            .then((items) => dispatch(fetchTodosSuccess(items)))
-            .catch(error => dispatch(fetchTodosFailure(error)))
-    }
-}
 
 export function todosAddData(url, item) {
     return (dispatch) => {
@@ -91,11 +61,9 @@ export function todosAddData(url, item) {
                 return response;
             })
             .then(() => dispatch(addTask(item)))
-            .catch(error => dispatch(fetchTodosFailure(error)));
+            .catch(error => { console.log(error); dispatch(fetchTodosFailure(true))});
     }
 }
-
-// Move URLs to external file
 
 export function todosDelete(url, id) {
     return (dispatch) => {
@@ -104,11 +72,32 @@ export function todosDelete(url, id) {
                 if (!response.ok) {
                     throw Error(response.statusText);
                 }
-                 
-
+                
                 return response;
             })
             .then(() => dispatch(deleteTask(id)))
-            .catch(error => dispatch(fetchTodosFailure(error)));
+            .catch(error => dispatch(fetchTodosFailure(true)));
+    }
+}
+
+export function todosFetchData(url) {
+    return (dispatch) => {
+        dispatch(fetchTodosRequest(true));
+
+        fetch(url)
+            .then(
+                response => {
+                    if (!response.ok) {
+                        throw Error(response.statusText);
+                    }
+
+                    
+                    dispatch(fetchTodosRequest(false));
+
+                    return response.json();
+                }
+            )
+            .then((items) => dispatch(fetchTodosSuccess(items)))
+            .catch(error => dispatch(fetchTodosFailure(true)));
     }
 }

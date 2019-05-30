@@ -1,12 +1,12 @@
 import React from 'react';
 import {
-    View,
-    Text,
-    StyleSheet,
-    KeyboardAvoidingView
+    KeyboardAvoidingView,
+    Text    
 } from 'react-native';
-import TaskList from './TaskList';
+
 import AddTask from './AddTask';
+import TaskList from './TaskList';
+import { styles } from '../styles/TodoList.styles'
 
 export default class TodoList extends React.Component {
     render() {
@@ -19,19 +19,3 @@ export default class TodoList extends React.Component {
         );
     }
 }
-
-const styles = StyleSheet.create({
-    mainContainer: {
-        flex: 1,
-        alignItems: 'center',
-        alignSelf: 'stretch',
-        padding: 20,
-        backgroundColor: '#ddd',
-    },
-    header: {
-        fontSize: 40,
-        color: '#aaa',
-        padding: 10,
-        textShadowOffset: { width: 2, height: 2 },
-    }
-});

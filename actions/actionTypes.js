@@ -1,0 +1,11 @@
+export const ADD_TASK = 'ADD_TASK';
+
+export const CHANGE_TEXT = 'CHANGE_TEXT';
+
+export const DELETE_TASK = 'DELETE_TASK';
+
+export const FETCH_TODOS_FAILURE = 'FETCH_TODOS_FAILURE';
+
+export const FETCH_TODOS_REQUEST = 'FETCH_TODOS_REQUEST';
+
+export const FETCH_TODOS_SUCCESS = 'FETCH_TODOS_SUCCESS';

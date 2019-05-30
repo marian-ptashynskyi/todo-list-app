@@ -3,10 +3,11 @@ import {
     FlatList,
     Text
 } from 'react-native';
-import Task from './Task';
 import { connect } from 'react-redux';
+
 import { todosFetchData } from '../actions/actions';
 import BASE_URL from '../baseURL';
+import Task from './Task';
 
 class TaskList extends React.Component {
     componentDidMount() {
@@ -27,11 +28,17 @@ class TaskList extends React.Component {
         }
         
         return (
-            <FlatList style={{alignSelf: 'stretch'}}
-                    data={this.props.data}
-                    renderItem={({item}) => 
-                        <Task taskId={item.id} text={item.name} />}
-                    keyExtractor={(item, index) => `key${item.id}` }
+            <FlatList 
+                style={{alignSelf: 'stretch'}}
+                data={this.props.data}
+                renderItem={
+                    ({item}) => 
+                        <Task 
+                            taskId={item.id} 
+                            text={item.name} 
+                        />
+                }
+                keyExtractor={(item, index) => `key${item.id}`}
             />
         );
     }
@@ -40,8 +47,8 @@ class TaskList extends React.Component {
 const mapStateToProps = (state) => {
     return {
         data: state.todos,
-        isLoading: state.isFetching,
-        hasErrored: state.hasErrored
+        hasErrored: state.hasErrored,
+        isLoading: state.isFetching
     };
 }; 
 

@@ -1,21 +1,12 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import TodoList from './components/TodoList';
-import { createStore, applyMiddleware } from 'redux';
+import { StyleSheet, View } from 'react-native';
 import { Provider } from 'react-redux';
-import { mainReducer } from './reducers/mainReducer';
-import thunk from 'redux-thunk';
+
+import TodoList from './components/TodoList';
+import configureStore from './configureStore';
 
 
 const store = configureStore();
-
-function configureStore(initialState) {
-    return createStore(
-        mainReducer,
-        initialState,
-        applyMiddleware(thunk)
-    );
-}
 
 export default class App extends React.Component {
   render() {
