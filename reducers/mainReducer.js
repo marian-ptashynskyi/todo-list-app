@@ -1,14 +1,34 @@
 const initialState = {
-    tasks: [
+    todos: [
         { id: 1, value: 'Task 1' },
         { id: 2, value: 'Task 2' },
         { id: 3, value: 'Task 3' }
     ], 
-    text: ''
+    text: '',
+    isFetching: false,
+    hasErrored: false
 };
 
 export function mainReducer(state = initialState, action) {
     switch (action.type) {
+        case 'FETCH_TODOS_REQUEST':
+            return {
+                ...state,
+                isFetching: true
+            };
+        case 'FETCH_TODOS_ERROR':
+            return {
+                ...state,
+                todos: [],
+                isFetching: false,
+                hasErrored: true
+            };
+        case 'FETCH_TODOS_SUCCESS':
+            return {
+                ...state,
+                isFetching: false,
+                todos: action.todos
+            };
         case 'CHANGE_TEXT': 
             return { 
                 ...state,
@@ -17,13 +37,13 @@ export function mainReducer(state = initialState, action) {
         case 'ADD_TASK': 
             return {
                 text: '',
-                tasks: [...state.tasks, action.task]
+                todos: [...state.todos, action.task]
             };
         case 'DELETE_TASK': {
-            let filtered = state.tasks.filter(task => task.id !== action.id);
+            let filtered = state.todos.filter(task => task.id !== action.id);
             return {
                 ...state,
-                tasks: filtered
+                todos: filtered
             };
         }       
         default: 
