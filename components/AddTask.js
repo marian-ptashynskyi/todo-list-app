@@ -6,14 +6,15 @@ import {
     StyleSheet
 } from 'react-native';
 import { connect } from 'react-redux';
-import { changeText, addTask } from '../actions/actions';
+import { changeText, todosAddData } from '../actions/actions';
+import BASE_URL from '../baseURL';
 
 class AddTask extends React.Component {
     render() {
         return (
             <View style={styles.taskContainer}>
                 <TextInput style={styles.taskText} value={this.props.text} onChangeText={(text) => this.props.changeText(text)} />
-                <Button color='#ccc' title='Add' onPress={() => this.props.addTask({id: Date.now(), value: this.props.text})} />
+                <Button color='#ccc' title='Add' onPress={() => this.props.addTask({id: Date.now(), name: this.props.text})} />
             </View>
         );
     }
@@ -28,7 +29,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         changeText: (text) => dispatch(changeText(text)),
-        addTask: (task) => dispatch(addTask(task))
+        addTask: (task) => dispatch(todosAddData(BASE_URL, task))
     };
 }
 

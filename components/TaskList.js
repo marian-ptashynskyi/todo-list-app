@@ -6,11 +6,11 @@ import {
 import Task from './Task';
 import { connect } from 'react-redux';
 import { todosFetchData } from '../actions/actions';
+import BASE_URL from '../baseURL';
 
 class TaskList extends React.Component {
     componentDidMount() {
-        //this.props.fetchAllTodos('http://192.168.0.104:5000/api/todo');
-        this.props.fetchAllTodos('http://192.168.103.121:5000/api/todo');
+        this.props.fetchAllTodos(BASE_URL);
     }
 
     render() {

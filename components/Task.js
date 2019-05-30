@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import { deleteTask } from '../actions/actions';
+import { deleteTask, todosDelete } from '../actions/actions';
+import BASE_URL from '../baseURL';
 
 class Task extends React.Component {
     render() {
@@ -19,14 +20,14 @@ class Task extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    return {
+    return { 
 
     };
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        deleteTask: (id) => dispatch(deleteTask(id))
+        deleteTask: (id) => dispatch(todosDelete(BASE_URL, id))
     };
 }
 
