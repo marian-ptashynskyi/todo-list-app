@@ -42,6 +42,13 @@ export const fetchTodosSuccess = (todos) => {
     };
 };
 
+export const toggleTodosCompletion = (id) => {
+    return {
+        type: ActionTypes.TOGGLE_COMPLETION,
+        id
+    };
+};
+
 export function todosAddData(url, item) {
     return (dispatch) => {
         let itemJson = JSON.stringify(item);
@@ -62,6 +69,22 @@ export function todosAddData(url, item) {
             })
             .then((response) => dispatch(addTask(response)))
             .catch(error => { console.log(error); dispatch(fetchTodosFailure(true))});
+    }
+}
+
+export function todosChangeData(url, item) {
+    return (dispatch) => {
+        let itemJson = JSON.stringify(item);
+        fetch(`${url}/${item.id}`, { 
+            method: 'PUT',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: itemJson
+        })
+        .then((response) => dispatch(toggleTodosCompletion(item.id)))
+        .catch(error => { console.log(error); dispatch(fetchTodosFailure(true))});
     }
 }
 

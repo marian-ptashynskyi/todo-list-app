@@ -1,12 +1,17 @@
 import React from 'react';
-import { 
-    Button, 
-    Text, 
-    View 
+import {
+    Text,
+    TouchableOpacity,
+    View
 } from 'react-native';
+import { CheckBox } from 'react-native-elements';
 import { connect } from 'react-redux';
+import { AntDesign } from '@expo/vector-icons';
 
-import { todosDelete } from '../actions/actions';
+import { 
+    todosChangeData,
+    todosDelete
+ } from '../actions/actions';
 import BASE_URL from '../baseURL';
 import { styles } from '../styles/Task.styles';
 
@@ -14,12 +19,22 @@ class Task extends React.Component {
     render() {
         return (
             <View style={styles.taskContainer}>
-                <Text style={styles.taskText}>{this.props.text}</Text>
-                <Button 
-                    color='#ccc'
-                    title='x' 
-                    onPress={() => this.props.deleteTask(this.props.taskId)}
+                <CheckBox
+                    checked={this.props.value.isCompleted}
+                    checkedColor='#888'
+                    onPress={() => this.props.toggleCompletion(this.props.value)}
                 />
+                <Text 
+                    style={[styles.taskText, this.props.value.isCompleted ? styles.taskTextComplete : {}]}
+                >
+                    {this.props.value.text}
+                </Text>
+                <TouchableOpacity
+                    style={styles.deleteButton}
+                    onPress={() => this.props.deleteTask(this.props.value.id)}
+                >
+                    <AntDesign name="close" size={28} color='#888' />
+                </TouchableOpacity>
             </View>
         )
     }
@@ -27,7 +42,8 @@ class Task extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        deleteTask: (id) => dispatch(todosDelete(BASE_URL, id))
+        deleteTask: (id) => dispatch(todosDelete(BASE_URL, id)),
+        toggleCompletion: (id) => dispatch(todosChangeData(BASE_URL, id))
     };
 }
 

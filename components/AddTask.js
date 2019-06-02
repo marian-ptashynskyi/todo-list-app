@@ -1,11 +1,12 @@
 import React from 'react';
 import {
-    Button, 
     Keyboard,
     TextInput,
+    TouchableOpacity,
     View
 } from 'react-native';
 import { connect } from 'react-redux';
+import { AntDesign } from '@expo/vector-icons';
 
 import { changeText, todosAddData } from '../actions/actions';
 import BASE_URL from '../baseURL';
@@ -14,7 +15,6 @@ import { styles } from '../styles/AddTask.styles';
 class AddTask extends React.Component {
     handleAddTaskSubmit = () => {
         this.props.addTask({
-            //id: Date.now(),
             text: this.props.text
         });
 
@@ -27,13 +27,16 @@ class AddTask extends React.Component {
                 <TextInput 
                     style={styles.taskText} 
                     value={this.props.text} 
+                    placeholder='Add new todo task'
                     onChangeText={(text) => this.props.changeText(text)} 
                 />
-                <Button 
+                <TouchableOpacity
                     color='#ccc' 
                     title='Add' 
-                    onPress={this.handleAddTaskSubmit} 
-                />
+                    onPress={this.handleAddTaskSubmit}
+                >
+                    <AntDesign name="plus" size={30} color='#888' />
+                </TouchableOpacity>
             </View>
         );
     }

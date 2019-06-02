@@ -44,6 +44,12 @@ export function rootReducer(state = initialState, action) {
                 ...state,
                 todos: action.todos,
             }
+        case ActionTypes.TOGGLE_COMPLETION:
+            let toggled = state.todos.map(item => (item.id === action.id) ? { ...item, isCompleted: !item.isCompleted } : item);
+            return {
+                ...state,
+                todos: toggled,
+            }
         default:
             return state;
     }

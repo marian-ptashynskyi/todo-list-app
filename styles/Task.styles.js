@@ -2,22 +2,30 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
     taskContainer: {
+        flex: 1,
         flexDirection: 'row',
-        margin: 2,
         borderColor: '#dedede',
         borderWidth: StyleSheet.hairlineWidth,
         backgroundColor: '#eee',
-        shadowOffset: {width: 2, height: 2},
-        alignSelf: 'stretch',
-        marginHorizontal: 20,
         justifyContent: 'space-between',
     },
     taskText: {
-        textAlign: 'center',
+        textAlign: 'left',
         textAlignVertical: 'center',
-        alignSelf: 'stretch',
-        paddingHorizontal: 15,
+        width: '70%',
         fontSize: 16,
         color: '#777',
+    },
+    taskTextAndCheckbox: {
+        flexDirection: 'row',
+        alignItems: 'stretch',
+    },
+    taskTextComplete: {
+        textDecorationLine: 'line-through',
+        color: '#888',
+    },
+    deleteButton: {
+        alignSelf: 'center',
+        padding: 10,
     },
 });
