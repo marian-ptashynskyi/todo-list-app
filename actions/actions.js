@@ -58,9 +58,9 @@ export function todosAddData(url, item) {
                     throw Error(response.statusText);
                 }
 
-                return response;
+                return response.json();
             })
-            .then(() => dispatch(addTask(item)))
+            .then((response) => dispatch(addTask(response)))
             .catch(error => { console.log(error); dispatch(fetchTodosFailure(true))});
     }
 }

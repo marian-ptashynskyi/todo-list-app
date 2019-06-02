@@ -35,7 +35,7 @@ class TaskList extends React.Component {
                     ({item}) => 
                         <Task 
                             taskId={item.id} 
-                            text={item.name} 
+                            text={item.text} 
                         />
                 }
                 keyExtractor={(item, index) => `key${item.id}`}

@@ -14,8 +14,8 @@ import { styles } from '../styles/AddTask.styles';
 class AddTask extends React.Component {
     handleAddTaskSubmit = () => {
         this.props.addTask({
-            id: Date.now(),
-            name: this.props.text
+            //id: Date.now(),
+            text: this.props.text
         });
 
         Keyboard.dismiss();
