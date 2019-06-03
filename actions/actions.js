@@ -52,7 +52,7 @@ export const toggleTodosCompletion = (id) => {
 export function todosAddData(url, item) {
     return (dispatch) => {
         let itemJson = JSON.stringify(item);
-        fetch(url, {
+        return fetch(url, {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -75,7 +75,7 @@ export function todosAddData(url, item) {
 export function todosChangeData(url, item) {
     return (dispatch) => {
         let itemJson = JSON.stringify({ ...item, isCompleted: !item.isCompleted });
-        fetch(`${url}/${item.id}`, { 
+        return fetch(`${url}/${item.id}`, { 
             method: 'PUT',
             headers: {
                 Accept: 'application/json',
@@ -95,7 +95,7 @@ export function todosChangeData(url, item) {
 
 export function todosDelete(url, id) {
     return (dispatch) => {
-        fetch(`${url}/${id}`, { method: 'DELETE' })
+        return fetch(`${url}/${id}`, { method: 'DELETE' })
             .then(response => {
                 if (!response.ok) {
                     throw Error(response.statusText);
@@ -112,7 +112,7 @@ export function todosFetchData(url) {
     return (dispatch) => {
         dispatch(fetchTodosRequest(true));
 
-        fetch(url)
+        return fetch(url)
             .then(
                 response => {
                     if (!response.ok) {

@@ -2,7 +2,8 @@ import React from 'react';
 import {
     ActivityIndicator,
     FlatList,
-    Text
+    Text,
+    View
 } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -16,6 +17,13 @@ class TaskList extends React.Component {
     }
 
     render() {
+
+        if (this.props.hasErrored) {
+            return (
+                <Text>Something went wrong</Text>
+            )
+        }
+
         if (this.props.isLoading) {
             return (
                 <View>
@@ -23,12 +31,6 @@ class TaskList extends React.Component {
                     <ActivityIndicator size="small" color='black' />
                 </View>
             );
-        }
-
-        if (this.props.hasErrored) {
-            return (
-                <Text>Something went wrong</Text>
-            )
         }
         
         return (
