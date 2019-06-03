@@ -43,7 +43,7 @@ class Task extends React.Component {
 const mapDispatchToProps = (dispatch) => {
     return {
         deleteTask: (id) => dispatch(todosDelete(BASE_URL, id)),
-        toggleCompletion: (id) => dispatch(todosChangeData(BASE_URL, id))
+        toggleCompletion: (item) => dispatch(todosChangeData(BASE_URL, item))
     };
 }
 

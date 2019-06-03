@@ -74,7 +74,7 @@ export function todosAddData(url, item) {
 
 export function todosChangeData(url, item) {
     return (dispatch) => {
-        let itemJson = JSON.stringify(item);
+        let itemJson = JSON.stringify({ ...item, isCompleted: !item.isCompleted });
         fetch(`${url}/${item.id}`, { 
             method: 'PUT',
             headers: {
@@ -83,7 +83,12 @@ export function todosChangeData(url, item) {
             },
             body: itemJson
         })
-        .then((response) => dispatch(toggleTodosCompletion(item.id)))
+        .then((response) => {
+            if (!response.ok) {
+                throw Error(response.statusText);
+            }
+            dispatch(toggleTodosCompletion(item.id));
+        })
         .catch(error => { console.log(error); dispatch(fetchTodosFailure(true))});
     }
 }
