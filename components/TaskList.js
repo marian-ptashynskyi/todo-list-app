@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+    ActivityIndicator,
     FlatList,
     Text
 } from 'react-native';
@@ -17,7 +18,10 @@ class TaskList extends React.Component {
     render() {
         if (this.props.isLoading) {
             return (
-                <Text>Wait !</Text>
+                <View>
+                    <Text>Wait !</Text>
+                    <ActivityIndicator size="small" color='black' />
+                </View>
             );
         }
 

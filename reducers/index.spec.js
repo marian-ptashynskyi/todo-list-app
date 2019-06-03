@@ -35,6 +35,16 @@ describe('root reducer tests', () => {
 
         expect(rootReducer(state, action)).toEqual(initialState);
     });
+    it('Delete task nonexistent id', () => {
+        const action = {
+            type: AT.DELETE_TASK,
+            id: 2
+        }
+
+        let state = {...initialState, todos: [{id: 1, text: 'New', isCompleted: true}]};
+
+        expect(rootReducer(state, action)).toEqual(state);
+    });
     it('Fetch failure', () => {
         const action = {
             type: AT.FETCH_TODOS_FAILURE,
@@ -81,6 +91,19 @@ describe('root reducer tests', () => {
         expect(rootReducer(state, action)).toEqual({
             ...state,
             todos: [{id: 1, text: 'New', isCompleted: false}, {id: 3, text: 'New', isCompleted: true}]
-        })
+        });
+    });
+    it('Toggle completion test with wrong id', () => {
+        const state = {...initialState, todos: [{id: 1, text: 'New', isCompleted: true}, {id: 3, text: 'New', isCompleted: true}]};
+
+        const action = {
+            type: AT.TOGGLE_COMPLETION,
+            id: 2
+        }
+
+        expect(rootReducer(state, action)).toEqual({
+            ...state,
+            todos: [{id: 1, text: 'New', isCompleted: true}, {id: 3, text: 'New', isCompleted: true}]
+        });
     });
 })
